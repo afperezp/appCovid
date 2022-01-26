@@ -1,8 +1,26 @@
 from django.shortcuts import render
+from .helpers import QRDecoder
 
 # Create your views here.
 
 import pyrebase
+import cv2
+import qrcode as qr
+import cv2 
+import zlib
+
+import pprint
+import pyrebase as py
+import threading
+import sys
+import socket
+import pickle
+import os
+import smtplib, ssl
+import getpass
+
+from covidscanner.Forms import ImageForm
+
 
 config = {
     'apiKey': "AIzaSyByJhZKkc9G0B-MrOOsnuDxIgUUELIEKyM",
@@ -18,7 +36,9 @@ firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 database = firebase.database()
 
-def index(request):
+def dashboard(request):
+    from .helpers import conteo
+    conteo()
 
     AstraZenecaCount = database.child("CovidApp").child('ConteoVacunas').child('Astra Zeneca').get().val()
     JanssenCount = database.child("CovidApp").child('ConteoVacunas').child('Janssen').get().val()
@@ -34,7 +54,10 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def scanQR(request):
-
-    
-    return render(request, "scanView", {})
+def QRScanView(request):
+    if request == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            img = form.cleaned_data.get("passport_field")
+            QRDecoder(img)
+    return render(request, "scanView.html", {})

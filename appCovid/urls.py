@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from covidscanner.views import index
+from covidscanner.views import dashboard, QRScanView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='home'),
-    path('dashboard/', index, name='dashboard'),
+    path('', dashboard, name='home'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('QRScanView/', QRScanView, name='QRScanView'),
 ]

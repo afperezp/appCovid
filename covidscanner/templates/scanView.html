@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid APP: Sube tu pasaporte COVID</title>
+</head>
+<body>
+    <form action="/QRScanView/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        Sube tu pasaporte COVID:
+        <input type="file" name="files[]" id="files">
+        <input type="hidden" name="url" id="url">
+        <input type="submit" value="Submit"><br><br>
+    </form>
+    <button>
+        <a href="{% url 'dashboard' %}">Volver a inicio</a>
+    </button>
+</body>
+</html>
