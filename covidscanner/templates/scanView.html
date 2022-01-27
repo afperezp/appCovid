@@ -7,12 +7,10 @@
     <title>Covid APP: Sube tu pasaporte COVID</title>
 </head>
 <body>
-    <form action="/QRScanView/" method="post" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        
         Sube tu pasaporte COVID:
-        <input type="file" name="files[]" id="files">
-        <input type="hidden" name="url" id="url">
+        {{ form.as_p }}
         <input type="submit" value="Submit"><br><br>
     </form>
     <button>

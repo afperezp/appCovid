@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'covidscanner.apps.CovidscannerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,7 +52,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'appCovid.urls'
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

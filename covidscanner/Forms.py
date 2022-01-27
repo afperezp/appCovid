@@ -1,6 +1,13 @@
 from django import forms
 
-class ImageForm(forms.Form):
-    first_name= forms.CharField(max_length=100)
-    passport_field = forms.ImageField()
+from covidscanner.models import Passports
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Passports
+        fields = ("passports",)
     
+
+class EmailForm(forms.Form):
+    email_field = forms.EmailField()
+

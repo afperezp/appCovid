@@ -55,9 +55,29 @@ def dashboard(request):
 
 
 def QRScanView(request):
-    if request == 'POST':
+    from pathlib import Path
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    
+    if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            img = form.cleaned_data.get("passport_field")
-            QRDecoder(img)
-    return render(request, "scanView.html", {})
+        if form.is_valid(): 
+            print("Form was valid")
+            name_file = str(form.cleaned_data["passports"])
+            print(name_file)
+            form.save()
+            
+            
+            path_passport = str(BASE_DIR)  + '/media/media/passports/' + name_file
+            mensaje = QRDecoder(path_passport)
+            print("Todo ha salido genial")
+        else:
+            print("#################")
+            print("Form wasnt valid")
+    else:
+        print("Un get")
+        form = ImageForm(request.POST or None, request.FILES or None)
+
+    context = {
+            "form":form
+        }
+    return render(request, "scanView.html", context)
