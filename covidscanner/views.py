@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .helpers import QRDecoder
+from .helpers import QRDecoder, enviarCorreos
 
 # Create your views here.
 
@@ -64,6 +64,8 @@ def QRScanView(request):
             print("Form was valid")
             name_file = str(form.cleaned_data["passports"])
             print(name_file)
+            email =form.cleaned_data["email"]
+            enviarCorreos(email)
             form.save()
             
             
@@ -81,3 +83,22 @@ def QRScanView(request):
             "form":form
         }
     return render(request, "scanView.html", context)
+
+
+
+
+def StatsView(request):
+    from .helpers import conteo
+    conteo()
+    AstraZenecaCount = database.child("CovidApp").child('ConteoVacunas').child('Astra Zeneca').get().val()
+    JanssenCount = database.child("CovidApp").child('ConteoVacunas').child('Janssen').get().val()
+    ModernaCount = database.child("CovidApp").child('ConteoVacunas').child('Moderna').get().val()
+    PfizerCount = database.child("CovidApp").child('ConteoVacunas').child('Pfizer').get().val()
+
+    context = {
+        'AstraZenecaCount':AstraZenecaCount, 
+        'JanssenCount':JanssenCount, 
+        'ModernaCount':ModernaCount, 
+        'PfizerCount':PfizerCount, 
+    }
+    return render(request, "stats.html", context)

@@ -1,33 +1,48 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Covid App</title>
+	<meta charset="UTF-8">
+	<title>CovidApp</title>
+    <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-    <h1>Covid APP</h1>
-    <h4>
-        Esta es la nueva App de Pasaportes creada por los estudiantes de la UEM
-    </h4>
-    <h3>
-        Estadisticas de las vacunas: 
-    </h3>
-    <p>
+	<div class="wrapper">
+			<nav class="navbar">
+				<a  href="{% url 'dashboard' %}"><img class="logo" src="logo.png"></a>
+				<ul>
+					<li><a class="active" href="{% url 'dashboard' %}">Home</a></li>
+					<li><a href="{% url 'QRScanView' %}">Subir Passaporte COVID</a></li>
+				</ul>
+			</nav>
+			<div class="center">
+			<h1>App de Pasaportes COVID</h1>
+			<h2>creada por M22</h2>
+			<div class="buttons">
+			<button><a href="{% url 'StatsView' %}">Estadísticas de las vacunas</a></button>
+            
+            <div>
+                <ul>
+                    <li>
+                    
+                            Cantidad de Astrazeneca : {{ AstraZenecaCount }}<br>
+            
+                    </li>
+                    <li>
+                        Cantidad de Janssen : {{ JanssenCount }}<br>
 
-        Cantidad de Astrazeneca : {{ AstraZenecaCount }}
-        Cantidad de Janssen : {{ JanssenCount }}
-        Cantidad de Moderna : {{ ModernaCount }}
-        Cantidad de Pfizer : {{ PfizerCount }}
-    </p>
-
-    <button>
-        <a href="{% url 'QRScanView' %}">
-
-            Escanear mi pasaporte YA
-        </a>
-    </button>
-
+                    </li>
+                    <li>
+                        Cantidad de Moderna : {{ ModernaCount }}<br>
+                    </li>
+                    <li>
+                        Cantidad de Pfizer : {{ PfizerCount }}<br>
+                    </li>
+                </ul>
+            </div>
+		</div>
+		</div>
 </body>
 </html>
