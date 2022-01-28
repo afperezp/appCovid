@@ -101,7 +101,7 @@ def enviarCorreos(destinatario):
     from email.mime.multipart import MIMEMultipart
     username = "trabajofinalpcd2022@gmail.com"
     password = "pcdcovid"
-    asunto= input("Ingrese el asunto: ")
+    asunto= "Covid Pasaporte"
     mensaje = MIMEMultipart("alternative")
     mensaje["Subject"] = asunto
     mensaje["From"] = username
